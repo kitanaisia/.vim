@@ -1,0 +1,83 @@
+[[plugins]]
+repository = 'Shougo/neocomplete.vim'
+insert = 1
+
+[[plugins]]
+repository = 'Shougo/neosnippet.vim'
+insert = 1
+unite_sources = ['neosnippet', 'neosnippet_file', 'neosnippet_target']
+
+[[plugins]]
+repository = 'Shougo/neosnippet-snippets'
+insert = 1
+
+[[plugins]]
+repository = 'Shougo/unite.vim'
+commands = ['UniteWithCurrentDir', 'Unite', 'UniteWithInputDirectory', 'UniteWithProjectDir', 'UniteBookmarkAdd', 'UniteResume', 'UniteWithBufferDir', 'UniteWithCursorWord', 'UniteWithInput', 'UniteClose' ]
+
+[[plugins]]
+repository = 'Shougo/unite-outline'
+depends = "Shougo/unite.vim"
+commands = ['UniteWithCurrentDir', 'Unite', 'UniteWithInputDirectory', 'UniteWithProjectDir', 'UniteBookmarkAdd', 'UniteResume', 'UniteWithBufferDir', 'UniteWithCursorWord', 'UniteWithInput', 'UniteClose' ]
+
+[[plugins]]
+repository = 'Shougo/vimfiler'
+augroup = "vimfiler"
+unite_sources = ['vimfiler_drive', 'vimfiler_execute', 'vimfiler_history', 'vimfiler_mask', 'vimfiler_popd', 'vimfiler_sort']
+mappings = [['n', '<Plug>(vimfiler_']]
+commands = ["VimFiler"]
+
+[[plugins]]
+repository = 'Shougo/vimshell'
+unite_sources = ['vimshell_external_history', 'vimshell_history', 'vimshell_zsh_complete']
+mappings = ['n', '<Plug>(vimshell_']
+commands = ["Vimshell"]
+
+[[plugins]]
+repository = 'Shougo/vimproc.vim'
+ 
+  [plugins.build]
+  windows = 'tools\\update-dll-mingw'
+  cygwin = 'make -f make_cygwin.mak'
+  mac = 'make -f make_mac.mak'
+  unix = 'make -f make_unix.mak'
+
+[[plugins]]
+repository = 'supermomonga/vimshell-pure.vim'
+depends = "Shougo/vimshell.vim"
+
+[[plugins]]
+repository = 'kana/vim-smartinput'
+insert = 1
+
+[[plugins]]
+repository = 'kana/vim-smartchr'
+insert = 1 
+[[plugins]]
+repository = "ujihisa/neco-look"
+insert = 1
+
+[[plugins]]
+repository = "anekos/felis-cat-igirisu-toast-express"
+insert = 1
+
+[[plugins]]
+repository = "mattn/emmet-vim"
+filetypes = ["html", "eruby", "jsp"]
+
+[[plugins]]
+repository = "mattn/benchvimrc-vim"
+commands = "BenchVimrc"
+
+[[plugins]]
+repository = "kmnk/vim-unite-giti"
+unite_sources = ["giti"]
+commands = ['Giti', 'GitiDiff', 'GitiLog', 'GitiPushExpressly', 'GitiPull', 'GitiFetch', 'GitiWithConfirm', 'GitiPushWithSettingUpstream', 'GitiPullRebase', 'GitiPullExpressly', 'GitiLogLine', 'GitiPush', 'GitiDiffCached', 'GitiPullSquash']
+
+[[plugins]]
+repository = "davidhalter/jedi-vim"
+filetypes = "python"
+
+[[plugins]]
+repository = 'surround.vim'
+mappings = "<Plug>"

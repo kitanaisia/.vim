@@ -1,0 +1,193 @@
+\documentclass{jarticle}
+\usepackage{ascmac}				% 引用，ソースコード用の特殊な外枠
+\usepackage[dvipdfmx]{graphicx}	% 画像の挿入
+\usepackage{amsmath,amssymb}	% 数式，数式用フォント
+%\usepackage{multicol}			% 複数段組
+\usepackage{cases}
+\usepackage{graphicx}
+
+\graphicspath{{./image/}{./graph/}} % 画像，グラフのフォルダ
+
+%%%% ページ設定 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 以下は各自で微調整してください．
+
+\pagestyle{empty}	% ページ番号を付けない
+\oddsidemargin=-4mm	% (奇数)ページの左余白 %16
+\textwidth=486pt	% 文書幅 %495
+\textheight=765pt	% 文書高さ　%745
+\columnsep=2.6zw	% 段と段の間の余白 %3.5zw
+\topmargin=-70pt	% 上余白
+\parindent=1zw		% 段落開始のずらし幅
+\parskip =0pt		% 段落(章ごとの)間の空き
+
+%%%% 文書のスタイル設定 %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter % \makeatotherで終わること
+
+%% 見出し番号のスタイル
+\renewcommand{\thesection}{\@arabic\c@section.} % 見出し1（X.）
+\renewcommand{\thesubsection}{\thesection\@arabic\c@subsection} % 見出し2（X.X）
+\renewcommand{\thesubsubsection}{%
+  \thesection\@arabic\c@subsection.\@arabic\c@subsubsection} % 見出し3（X.X.X）
+
+%% 見出しのフォント
+\renewcommand{\section}{%
+  \@startsection{section}{1}{\z@}%
+  {.2\Cvs}% \@plus.5\Cdp \@minus.2\Cdp}% 前アキ
+  {.2\Cvs}% \@plus.3\Cdp}% 後アキ
+  {\normalfont\large\bfseries}}%\headfont\raggedright}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+  {.1\Cvs}% \@plus.5\Cdp \@minus.2\Cdp}% 前アキ
+  {.1\Cvs}% \@plus.1\Cdp}% 後アキ
+  {\normalfont\normalsize\bfseries}}%\headfont}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{2}{\z@}%
+  {.1\Cvs}% \@plus.5\Cdp \@minus.2\Cdp}% 前アキ
+  {.1\Cvs}% \@plus.1\Cdp}% 後アキ
+  {\normalfont\normalsize\bfseries}}%\headfont}}
+
+%% 参考文献の記述スタイル
+%	\newdimen\bibindent
+%	\setlength\bibindent{2zw}
+%	\renewenvironment{thebibliography}[1]{%
+%	  \global\let\presectionname\relax
+%	  \global\let\postsectionname\relax
+%	  \subsection*{\refname}\@mkboth{\refname}{\refname}%
+%	  \small\baselineskip9pt %%%%%%%
+%	  \list{\@biblabel{\@arabic\c@enumiv}}%
+%	  {\settowidth\labelwidth{\@biblabel{#1}}%
+%	    \leftmargin\labelwidth
+%	    \advance\leftmargin\labelsep
+%	    \@openbib@code
+%	\setlength{\itemsep}{1pt}%%%%%%%%%%%%%%%%%
+%	\setlength{\parsep}{1pt}%%%%%%%%%%%%%%%%%%
+%	    \usecounter{enumiv}%
+%	    \let\p@enumiv\@empty
+%	    \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+%	  \sloppy
+%	  \clubpenalty4000
+%	  \@clubpenalty\clubpenalty
+%	  \widowpenalty4000%
+%	  \sfcode`\.\@m}
+%	{\def\@noitemerr
+%	  {\@latex@warning{Empty `thebibliography' environment}}%
+%	  \endlist}
+
+%% 図表番号のスタイル定義
+\long\def\@makecaption#1#2{% \@makecaption を再定義します
+  \vskip\abovecaptionskip
+  \iftdir\sbox\@tempboxa{#1\hskip1zw#2}%
+    \else\sbox\@tempboxa{#1 ~ #2}% ここの : を ~ に変更する
+  \fi
+  \ifdim \wd\@tempboxa >\hsize% 
+    \iftdir #1\hskip1zw#2\relax\par
+      \else #1 ~ #2\relax\par\fi% ここの : を ~ に変更する
+  \else
+    \global \@minipagefalse
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}% センタリング
+%   \hbox to\hsize{\box\@tempboxa\hfil}%      左詰め
+%   \hbox to\hsize{\hfil\box\@tempboxa}%      右詰め
+  \fi
+  \vskip\belowcaptionskip}
+
+%% 図表番号のスタイル
+\newcommand{\figcaption}[1]{\def\@captype{figure}\caption{#1}}
+\newcommand{\tblcaption}[1]{\def\@captype{table}\caption{#1}}
+
+%% 番号付き箇条書きのスタイル
+% enumerate
+\renewenvironment{enumerate}
+  {\ifnum \@enumdepth >\thr@@\@toodeep\else
+   \advance\@enumdepth\@ne
+   \edef\@enumctr{enum\romannumeral\the\@enumdepth}%
+   \list{\csname label\@enumctr\endcsname}{%
+\parsep1pt
+\itemsep1pt
+      \iftdir
+         \ifnum \@listdepth=\@ne \topsep.5\normalbaselineskip
+           \else\topsep\z@\fi
+         \parskip\z@ \itemsep\z@ \parsep\z@
+         \labelwidth1zw \labelsep.2zw
+         \ifnum \@enumdepth=\@ne \leftmargin1zw\relax
+           \else\leftmargin\leftskip\fi
+         \advance\leftmargin 1zw
+      \fi
+         \usecounter{\@enumctr}%
+         \def\makelabel##1{\hss\llap{##1}}}%
+   \fi}{\endlist}
+
+%% 箇条書きのスタイル
+\renewenvironment{itemize}%  
+{%
+%   \begin{list}{$\bullet$\ \ }% 見出し記号／直後の空白を調節
+   \begin{list}{・\ \ }% 見出し記号／直後の空白を調節
+   {%
+      \setlength{\itemindent}{0pt}
+      \setlength{\leftmargin}{2zw}%  左のインデント
+       \setlength{\rightmargin}{0zw}% 右のインデント
+       \setlength{\labelsep}{0zw}%    黒丸と説明文の間
+       \setlength{\labelwidth}{2zw}%  ラベルの幅
+       \setlength{\itemsep}{0em}%     項目ごとの改行幅
+       \setlength{\parsep}{0em}%      段落での改行幅
+       \setlength{\listparindent}{-1zw}% 段落での一字下り
+   }
+}{%
+   \end{list}%
+}
+
+\makeatother % 忘れずに
+
+%%%% 環境依存文字の設定 %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 丸囲み数字
+\newcommand{\MARU}[1]{{\ooalign{\hfil#1\/\hfil\crcr
+      \raise.167ex\hbox{\mathhexbox20D}}}}
+
+\newcommand{\DAGGER}{\footnotemark[2]}
+\newcommand{\DDAGGER}{\footnotemark[8]}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\newenvironment{ex}
+{\vspace*{-.2zw}\begin{quotation}\begin{tabular}{ll}}%
+    {\end{tabular}\end{quotation}\vspace*{-.2zw}}
+
+\newenvironment{format}
+{\vspace{-1ex}\begin{quotation}\hspace{1zw}}%
+  {\end{quotation}\vspace{-1ex}}
+
+% theorem環境
+\newtheorem{definition}{定義}
+
+%%%% ここから文書の記述 %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% ２段組しない部分（タイトル，日付，名前）を記述
+\vspace{-5mm}
+\begin{center}
+	\hspace{-4mm}\large\bf タイトル
+\end{center}
+\vspace{-20pt}% タイトルと著者名との空白
+\begin{flushright}
+	\today\\
+	M2　原　謙介
+\end{flushright}
+\hspace{10pt} % タイトル部と本文との余白
+
+% 二段組にする場合
+%\twocolumn[ \vspace{-5mm}
+%			\begin{center}
+%			    \hspace{-4mm}\large\bf タイトル
+%			\end{center}
+%			\vspace{-20pt}% タイトルと著者名との空白
+%			\begin{flushright}
+%				\today\\
+%				M2　原　謙介
+%			\end{flushright}
+%			\hspace{10pt} % タイトル部と本文との余白
+%]
+
+% 本文
+
+\end{document}
