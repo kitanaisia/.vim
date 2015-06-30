@@ -12,11 +12,7 @@ if has("lua")
         let g:neocomplete#keyword_patterns['default'] = '\h\w*'
         
         let g:neocomplete#sources#rsense#home_directory = "~/install/rsense-0.3/"
-        
-        "ruby用設定
-        let g:rsenseHome=$HOME."/install/rsense-0.3"
-        let g:rsenseUseOmniFunc = 1
-        
+
         "C#用
         let g:clang_complete_auto = 0
         let g:clang_auto_select = 0
@@ -514,7 +510,7 @@ set cmdheight=2
 
 "=============================vim-marchingの設定===============================
 " オムニ補完時に補完ワードを挿入したくない場合
-imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
+" imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
 
 " if has("unix")
 "     let s:bundle = neobundle#get("vim-marching")
