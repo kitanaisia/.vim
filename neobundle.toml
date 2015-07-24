@@ -31,3 +31,5 @@ repository = "shougo/tabpagebuffer.vim"
 [[plugins]]
 repository = 'surround.vim'
 
+[[plugins]]
+repository = "vim-jp/vim-go-extra"

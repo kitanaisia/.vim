@@ -76,3 +76,7 @@ commands = ['Giti', 'GitiDiff', 'GitiLog', 'GitiPushExpressly', 'GitiPull', 'Git
 [[plugins]]
 repository = "davidhalter/jedi-vim"
 filetypes = "python"
+
+[[plugins]]
+repository = 'mattn/sonictemplate-vim'
+commands = ["Template"]
