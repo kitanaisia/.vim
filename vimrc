@@ -46,8 +46,14 @@ if filereadable("/etc/vim/vimrc.local")
 endif
 
 "swpファイル，バックアップファイル作成ディレクトリ
-set directory=~/.vim/temporary
-set backupdir=~/.vim/temporary
+
+if !has("win32")
+    set directory=~/.vim/temporary
+    set backupdir=~/.vim/temporary
+else
+    set directory=~/vimfiles/temporary
+    set backupdir=~/vimfiles/temporary
+endif
 
 if !has("win32")
     let g:Powerline_symbols='fancy'
@@ -254,6 +260,28 @@ if has('vim_starting')
     set runtimepath+=~/.vim/.bundle/neobundle.vim
 endif
 
+if !has("win32")
+    set nocompatible
+    set runtimepath+=~/.vim/.bundle/neobundle.vim
+else
+    set nocompatible
+    set runtimepath+=~/vimfiles/.bundle/neobundle.vim
+endif
+
+if !has("win32")
+    if has('gui_running')
+        let g:neobundle#cache_file = expand("~/.vim/.bundle/.neobundle/gvim.cache")
+    else
+        let g:neobundle#cache_file = expand("~/.vim/.bundle/.neobundle/vim.cache")
+    endif
+else
+    if has('gui_running')
+        let g:neobundle#cache_file = expand("~/vimfiles/.bundle/.neobundle/gvim.cache")
+    else
+        let g:neobundle#cache_file = expand("~/vimfiles/.bundle/.neobundle/vim.cache")
+    endif
+endif
+
 if has('gui_running')
     let g:neobundle#cache_file = expand("~/.vim/.bundle/.neobundle/gvim.cache")
 else
@@ -265,8 +293,15 @@ call neobundle#begin(expand('~/.vim/.bundle'))
 "プラグイン管理用プラグイン
 NeoBundleFetch 'Shougo/neobundle.vim'
 if neobundle#load_cache()
-    call neobundle#load_toml('~/.vim/neobundle.toml')
-    call neobundle#load_toml('~/.vim/neobundlelazy.toml', {'lazy' : 1} )
+    if !has("win32")
+        call neobundle#load_toml('~/.vim/neobundle.toml')
+        call neobundle#load_toml('~/.vim/neobundlelazy.toml', {'lazy' : 1} )
+    else
+        call neobundle#load_toml('~/.vim/neobundle.toml')
+        call neobundle#load_toml('~/.vim/neobundlelazy.toml', {'lazy' : 1} )
+    endif
+    call neobundle#load_toml('~/vimfiles/neobundle.toml')
+    call neobundle#load_toml('~/vimfiles/neobundlelazy.toml', {'lazy' : 1} )
 
     NeoBundleSaveCache
 endif
