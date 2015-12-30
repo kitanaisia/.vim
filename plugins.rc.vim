@@ -244,7 +244,6 @@ nnoremap <expr>sv expand("%") =~ "^ssh://.*$" ?
 \                               ":20sp<CR>:e %:h/<CR>" : ":VimShellPop<CR>"
 nnoremap <expr><Leader>v expand("%") =~ "^ssh://.*$" ? 
 \                               ":e %:h/<CR>" : ":VimShell<CR>"
-call unite#custom_default_action("vimshell/history", "insert")
 autocmd MyAutoCmd FileType vimshell,int-* call s:vimshell_settings()
 function! s:vimshell_settings()
     nnoremap <buffer><C-p> gT
@@ -287,6 +286,7 @@ function! s:bundle.hooks.on_source(bundle)
     let g:vimshell_external_history_path = expand("~/.histfile")
     let g:vimshell_interactive_update_time = 1
 
+    call unite#custom_default_action("vimshell/history", "insert")
 endfunction
 
 " autocmd FileType vimshell
@@ -557,9 +557,7 @@ let g:lightline = {
       \   'filetype': 'MyFiletype',
       \   'fileencoding': 'MyFileencoding',
       \   'mode': 'MyMode',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
       \ }
 
 let g:lightline.component = {}

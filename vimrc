@@ -254,11 +254,11 @@ if has('vim_starting')
     set runtimepath+=~/.vim/.bundle/neobundle.vim
 endif
 
-if has('gui_running')
-    let g:neobundle#cache_file = expand("~/.vim/.bundle/.neobundle/gvim.cache")
-else
-    let g:neobundle#cache_file = expand("~/.vim/.bundle/.neobundle/vim.cache")
-endif
+" if has('gui_running')
+"     let g:neobundle#cache_file = expand("~/.vim/.bundle/.neobundle/gvim.cache")
+" else
+"     let g:neobundle#cache_file = expand("~/.vim/.bundle/.neobundle/vim.cache")
+" endif
 
 call neobundle#begin(expand('~/.vim/.bundle'))
 
@@ -269,6 +269,10 @@ if neobundle#load_cache()
     call neobundle#load_toml('~/.vim/neobundlelazy.toml', {'lazy' : 1} )
 
     NeoBundleSaveCache
+
+    if filereadable(expand("~/.vim/plugins.rc.vim"))
+        source ~/.vim/plugins.rc.vim
+    endif
 endif
 call neobundle#end()
 
@@ -279,6 +283,3 @@ endif
 "==============================カラースキーマ用設定==============================
 colorscheme landscape
 
-if filereadable(expand("~/.vim/plugins.rc.vim"))
-    source ~/.vim/plugins.rc.vim
-endif

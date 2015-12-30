@@ -41,7 +41,7 @@ if has("win32")
 " set iminsert=0
 " set imsearch=-1
 else
-	set guifont=Ricty\ 14
+	set guifont=RictyDiminished\ 14
     "set guifontwide=Ricty_for_Powerline\ 12
-    set guifontwide=Ricty\ 14
+    set guifontwide=RictyDiminished\ 14
 end
