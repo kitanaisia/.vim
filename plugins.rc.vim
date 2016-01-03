@@ -11,8 +11,6 @@ if has("lua")
         endif
         let g:neocomplete#keyword_patterns['default'] = '\h\w*'
         
-        let g:neocomplete#sources#rsense#home_directory = "~/install/rsense-0.3/"
-
         "C#用
         let g:clang_complete_auto = 0
         let g:clang_auto_select = 0
@@ -24,30 +22,20 @@ if has("lua")
         let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
         let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
         let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
         if !exists('g:neocomplete#force_omni_input_patterns')
             let g:neocomplete#force_omni_input_patterns = {}
         endif
-        let g:neocomplete#force_omni_input_patterns.cs = '[^.]\.\%(\u\{2,}\)\?'
+        " let g:neocomplete#force_omni_input_patterns.cs = '[^.]\.\%(\u\{2,}\)\?'
 
-        if has("unix")
-            autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
-        endif
+        " if has("unix")
+        "     autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
+        " endif
         
-        " For clang_complete.
-        if filereadable($HOME."/.vim/clang/lib/libclang.so") && has("unix")
-            let g:clang_library_path=$HOME."/.vim/clang/lib"
-        endif
-
-        "imap <C-k>     <Plug>(neosnippet_expand_or_jump)
         imap <expr><C-k> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<C-y>"
-        "smap <expr><C-k>     <Plug>(neosnippet_expand_or_jump)
         smap <expr><C-k> neosnippet#expandable_or_jumpable() ?
         \ "\<Plug>(neosnippet_expand_or_jump)" : "\<C-k>"
         xmap <expr><C-k>     <Plug>(neosnippet_expand_target)
-        "let g:NeoComplcache_Snippets_Dir = '~/.vim/autoload/neocomplcache/sources/snippets_complete'
-        "inoremap <expr><C-g>     neocomplcache#undo_completion()
         
         "tabで補完候補の選択を行う
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -83,7 +71,6 @@ else
             let g:neocomplcache_keyword_patterns = {}
         endif
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-       
 
         if !exists('g:neocomplcache_omni_patterns')
             let g:neocomplcache_omni_patterns = {}
@@ -92,16 +79,6 @@ else
             let g:neocomplcache_force_omni_patterns = {}
         endif
        
-        "ruby用設定
-        let g:rsenseHome=$HOME."/install/rsense-0.3"
-        let g:rsenseUseOmniFunc = 1
-        let g:neocomplcache#sources#rsense#home_directory = "~/install/rsense-0.3/"
-        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-       
-        " For clang_complete.
-        if filereadable($HOME."/.vim/clang/lib/libclang.so") && has("unix")
-            let g:clang_library_path=$HOME."/.vim/clang/lib"
-        endif
         let g:neocomplcache_force_overwrite_completefunc = 1
         let g:neocomplcache_force_omni_patterns.c =
                     \ '[^.[:digit:] *\t]\%(\.\|->\)'
@@ -156,10 +133,8 @@ nnoremap <silent> sb :Unite bookmark -default-action=rec/async <CR>
 nnoremap <silent> sy :Unite register<CR>
 nnoremap <silent> ss :Unite source<CR>
 nnoremap <silent> sm :Unite mapping -start-insert<CR>
-" nnoremap <silent> st :Unite tweetvim<CR>
 nnoremap <silent> sj :Unite junkfile/new junkfile -auto-preview -no-split<CR>
 nnoremap <silent> sg :Unite giti<CR>
-" autocmd MyAutoCmd Filetype w3m nnoremap <buffer><silent> sh :Unite w3m/history<CR>
 nnoremap <expr><silent> s/  <SID>smart_search_expr(
       \ "/", 
       \ ":\<C-u>Unite -buffer-name=search -start-insert -no-split line\<CR>")
@@ -168,19 +143,12 @@ nnoremap <silent><expr> s* <SID>smart_search_expr(
       \ ":\<C-u>UniteWithCursorWord -buffer-name=search line\<CR>")
 nnoremap <silent> su :UniteResume<CR>
 
-autocmd MyAutoCmd FileType ruby call s:ruby_settings()
-function! s:ruby_settings()
-    nnoremap sk :Unite ref/refe -winheight=30 -no-quit<CR>
-    "    setlocal include+=^\s*\<\%(load\|require\|require_relative\)\>
-endfunction
-
 " 変数設定
 let s:bundle = neobundle#get("unite.vim")
 function! s:bundle.hooks.on_source(bundle)
     let g:unite_enable_start_insert = 0
     let g:unite_source_file_mru_filename_format=""
     let g:unite_source_rec_max_cache_files=5000
-
 
     function! s:smart_search_expr(expr1, expr2)
       return line('$') > 50000 ?  a:expr1 : a:expr2
@@ -257,15 +225,6 @@ function! s:vimshell_settings()
     inoremap <buffer>{ <NOP>
 endfunction
 
-"when start vim with no file, execute VimShell.
-" autocmd MyAutoCmd VimEnter * call s:vimshell_startup()
-" function! s:vimshell_startup()
-"   if expand('%') == '' && !&modified
-"         " cd ~/
-"       execute ":VimShell"
-"   endif
-" endfunction
-
 if neobundle#tap('vimshell-pure.vim')
   call neobundle#config({
         \   'autoload' : {
@@ -289,20 +248,6 @@ function! s:bundle.hooks.on_source(bundle)
     call unite#custom_default_action("vimshell/history", "insert")
 endfunction
 
-" autocmd FileType vimshell
-" \ call vimshell#hook#add('postexec', 'vim_syntax', 'VimSyntax')
-"
-" function! VimSyntax(cmdline, context)
-"     let first = split(a:cmdline, ' ')[0]
-"     echomsg first
-"     if (first == "vim")
-"         set syntax on
-"     endif
-"
-" endfunction
-
-" function! s:bundle.hooks.on_post_source(bundle)
-" endfunction
 unlet s:bundle
 "==========quickrunの設定==========
 "強制終了のマップ
@@ -372,44 +317,9 @@ let g:ref_refe_cmd = "~/install/ruby-refm-1.9.3-dynamic-20120829/refe-1_8_7"
 let s:bundle = neobundle#get("vim-smartchr")
 function! s:bundle.hooks.on_source(bundle)
     augroup MyAutoCmd
-        " プログラミング言語全般の設定
-    "    autocmd Filetype c,cpp,cs,java,ruby,perl,python,matlab,R
-    "                \ inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
-    "                \| inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
-    "                \| inoremap <buffer><expr> * smartchr#one_of(' * ',  '*')
-    "                \| inoremap <buffer><expr> < search('^#include\%#', 'bcn') ? '<' : smartchr#one_of(' < ', ' << ', '<')
-    "                \| inoremap <buffer><expr> > search('< \%#', 'bcn') ? '<BS>><Left>' 
-    "                          \ : search('<\%#', 'bcn') ? '><Left>'
-    "                          \ : smartchr#one_of(' > ', ' >> ', '>')
-    "                \| inoremap <buffer><expr> / search('\.\%#', 'bcn') ? '/' : smartchr#one_of(' / ', '//', '/')
-    "                \| inoremap <buffer><expr> % smartchr#one_of(' % ', '%') 
-    "                \| inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
-    "                \| inoremap <buffer><expr> : smartchr#one_of(' : ', '::', ':')
-    "                \| inoremap <buffer><expr> =
-    "                          \ search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
-    "                          \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
-    "                          \ : smartchr#one_of(' = ', ' == ', '=')
-    "                \| inoremap <buffer><expr> , smartchr#one_of(', ', ',')
-    "                \| inoremap <buffer><expr> ~ search(' = \%#', 'bcn') ? '<BS>~ ' : '~'
-    "    autocmd Filetype c,cpp,cs,java,ruby,perl,python,matlab,R
-    "                \ inoremap <buffer><expr> =
-    "                          \ search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
-    "                          \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
-    "                          \ : smartchr#one_of(' = ', ' == ', '=')
-    "                \| inoremap <buffer><expr> , smartchr#one_of(', ', ',')
-    "                \| inoremap <buffer><expr> ~ search(' = \%#', 'bcn') ? '<BS>~ ' : '~'
-        " C言語以外で&を設定．Cで&はアドレス参照に用いるため，除外．
-    "    autocmd FileType java,ruby,perl,python
-    "                \ inoremap <buffer><expr> ? smartchr#one_of(' ? ', '?')
-
         autocmd FileType vimshell,int-ssh
                     \| inoremap <buffer><expr> > smartchr#one_of(' > ', ' >> ', '>')
                     \| inoremap <buffer><expr> < smartchr#one_of(' < ', ' << ', '<')
-    "     autocmd Filetype c,cpp
-    "                 \ inoremap <buffer><expr> / search('\.\%#', 'bcn') ? '/' : smartchr#one_of(' / ', '// ', "/")
-    "                 \| inoremap <buffer><expr> . smartchr#one_of('.', '->', '..')
-    "     autocmd Filetype java
-    "                 \ inoremap <buffer><expr> / search('\.\%#', 'bcn') ? '/' : smartchr#one_of(' / ', '// ', "/")
         autocmd Filetype tex
                     \ inoremap <buffer><expr> , smartchr#one_of(', ', ',')
         autocmd Filetype r,int-R
@@ -430,12 +340,6 @@ function! s:bundle.hooks.on_source(bundle)
     call smartinput#define_rule({'at': '|.*\%#.*|', 'char': '<Bar>', 'input': '<ESC>f<Bar>a', 'filetype': ['ruby']})
     call smartinput#define_rule({'at': '^[^#]*\%#', 'char': '#', 'input': '# ', 'filetype': ['ruby']})
 
-    "vim script
-    "call smartinput#map_to_trigger('i', '<', '<', '<')
-    "call smartinput#map_to_trigger('i', '>', '>', '>')
-    "call smartinput#define_rule({'at': '\%#', 'char': '<', 'input': '<><Left>', 'filetype': ['vim']})
-    "call smartinput#define_rule({'at': '<.*\%#.*>', 'char': '>', 'input': '<ESC>f>a', 'filetype': ['vim']})
-
     "tex
     " {, }}の設定は，neosnippetとの相性問題解決のため．
     call smartinput#map_to_trigger('i', '{', '{', '{')
@@ -450,59 +354,6 @@ endfunction
 unlet s:bundle
 "=============================tabline の設定===============================
 set showtabline=2
-"=============================shaberu.vim の設定===============================
-" if filereadable("/usr/local/bin/openjtalk.pl")
-"     "openjtalkを用いる
-"     let g:shaberu_user_define_say_command = 'openjtalk.pl "%%TEXT%%"'
-"     
-"     " Vim core
-"     autocmd MyAutoCmd VimEnter * ShaberuSay 'おはようございます'
-"     autocmd MyAutoCmd VimLeave * ShaberuSay 'また来てくださいね'
-"      
-"     " VimShell
-"     autocmd FileType vimshell
-"           \| call vimshell#hook#add('emptycmd', 'my_vimshell_emptycmd', 'g:my_vimshell_emptycmd')
-"           \| call vimshell#hook#add('notfound', 'my_vimshell_notfound', 'g:my_vimshell_notfound')
-"     function! g:my_vimshell_emptycmd(cmdline, context)
-"       :ShaberuSay 'コマンドを入力してください'
-"       return a:cmdline
-"     endfunction
-"     function! g:my_vimshell_notfound(cmdline, context)
-"       :ShaberuSay 'コマンドが見つかりません'
-"       return a:cmdline
-"     endfunction
-"      
-"     " .vimrc保存時に自動的にsource
-"     " autocmd MyAutoCmd BufWritePost .vimrc nested source $MYVIMRC | ShaberuSay 'ビムアールシーを読み込みました'
-" endif
-
-"なぜかIM制御が効かなくなったので応急処置
-" if has("unix") && has("gui_running")
-"     inoremap <silent><ESC> <C-^><ESC>
-" endif
-
-"=============================TweetVim の設定===============================
-" let g:tweetvim_display_icon=1
-" autocmd MyAutoCmd Filetype tweetvim
-"             \ nnoremap <buffer>t :TweetVimSay<CR>
-"             \| setlocal wrap
-
-"=============================singletonの設定===============================
-" 消した
-" if has("clientserver")
-"     call singleton#enable()
-" endif
-
-"=============================junkfileの設定===============================
-let g:junkfile#directory=$HOME."/Dropbox/.vim_junk"
-
-
-"=============================quickhlの設定===============================
-"nmap <Space>m <Plug>(quickhl-toggle)
-"xmap <Space>m <Plug>(quickhl-toggle)
-"nmap <Space>M <Plug>(quickhl-reset)
-"xmap <Space>M <Plug>(quickhl-reset)
-"nmap <Space>j <Plug>(quickhl-match)
 
 "=============================echodocの設定===============================
 let g:echodoc_enable_at_startup=1
@@ -611,60 +462,6 @@ endfunction
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
-
-"=============================calendar.vimの設定===============================
-" let g:calendar_google_calendar = 1
-" let g:calendar_google_task = 1
-
-"=============================watchdog.vimの設定===============================
-" let s:bundle = neobundle#get("vim-watchdogs")
-" function! s:bundle.hooks.on_source(bundle)
-"     call watchdogs#setup(g:quickrun_config)
-" endfunction
-" unlet s:bundle
-" 全ての filetype を有効にする
-" 使用できない設定の場合、エラーが出る場合があるので注意
-"let g:watchdogs_check_BufWritePost_enable = 1
-
-" 全ての filetype を有効にする
-" 使用できない設定の場合、エラーが出る場合があるので注意
-"let g:watchdogs_check_CursorHold_enable = 1
-
-"=============================submode.vimの設定===============================
-"let g:submode_keep_leaving_key=1
-""nnoremap <Space> <NOP>
-"call submode#enter_with('win', 'n', '', '<M-h>', '<C-w>h')
-"call submode#enter_with('win', 'n', '', '<M-j>', '<C-w>j')
-"call submode#enter_with('win', 'n', '', '<M-k>', '<C-w>k')
-"call submode#enter_with('win', 'n', '', '<M-l>', '<C-w>l')
-"call submode#map('win', 'n', '', 'h', '<C-w>h')
-"call submode#map('win', 'n', '', 'j', '<C-w>j')
-"call submode#map('win', 'n', '', 'k', '<C-w>k')
-"call submode#map('win', 'n', '', 'l', '<C-w>l')
-"
-""call submode#enter_with('win', 'n', '', '<M>>', '<C-w>>')
-""call submode#enter_with('win', 'n', '', '<M><', '<C-w><')
-""call submode#enter_with('win', 'n', '', '<M>+', '<C-w>-')
-""call submode#enter_with('win', 'n', '', '<M>-', '<C-w>+')
-""call submode#map('win', 'n', '', '>', '<C-w>>')
-""call submode#map('win', 'n', '', '<', '<C-w><')
-""call submode#map('win', 'n', '', '+', '<C-w>-')
-""call submode#map('win', 'n', '', '-', '<C-w>+')
-"
-"call submode#enter_with('win', 'n', '', '<M-n>', 'gt')
-"call submode#enter_with('win', 'n', '', '<M-p>', 'gT')
-"call submode#map('win', 'n', '', 'n', 'gt')
-"call submode#map('win', 'n', '', 'p', 'gT')
-
-"=============================vim-choosewinの設定===============================
-"nmap - <Plug>(choosewin)
-"
-"" オーバーレイ機能を有効にする。
-"let g:choosewin_overlay_enable = 1
-"
-"" オーバーレイ時、マルチバイト文字を含むバッファで、ラベル文字が崩れるのを防ぐ
-"let g:choosewin_overlay_clear_multibyte = 1
-
 
 "=============================caw.vimの設定===============================
 nmap <Leader>c <Plug>(caw:i:toggle)
