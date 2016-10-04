@@ -37,6 +37,7 @@ set incsearch       " Incremental search
 "swpファイル，バックアップファイル作成ディレクトリ
 set directory=~/.vim/temporary
 set backupdir=~/.vim/temporary
+set undodir=~/.vim/temporary
 
 if !has("gui_running")
     set t_Co=256
@@ -62,7 +63,7 @@ elseif has("unix")
     set clipboard=unnamedplus,autoselect
 endif
 
-set cursorline
+" set cursorline
 
 " 自動判別文字コード。
 set fileencodings=iso-2022-jp3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,eucjp-ms,cp932

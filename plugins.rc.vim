@@ -125,8 +125,7 @@ endfunction
 unlet s:bundle
 "==============================unite.vimの設定==============================
 "マッピング
-nnoremap <silent> sh :Unite -buffer-name=files file_mru file buffer file/new<CR>
-nnoremap <silent> sl :Unite -buffer-name=files locate file/new<CR>
+" nnoremap <silent> sh :Unite -buffer-name=files file_mru<CR>
 nnoremap <silent> sd :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <silent> so :Unite outline -winwidth=30<CR>
 nnoremap <silent> sb :Unite bookmark -default-action=rec/async <CR>
@@ -134,7 +133,6 @@ nnoremap <silent> sy :Unite register<CR>
 nnoremap <silent> ss :Unite source<CR>
 nnoremap <silent> sm :Unite mapping -start-insert<CR>
 nnoremap <silent> sj :Unite junkfile/new junkfile -auto-preview -no-split<CR>
-nnoremap <silent> sg :Unite giti<CR>
 nnoremap <expr><silent> s/  <SID>smart_search_expr(
       \ "/", 
       \ ":\<C-u>Unite -buffer-name=search -start-insert -no-split line\<CR>")
@@ -166,24 +164,24 @@ endfunction
 unlet s:bundle
 
 "=============================projectlocal.vimの設定===============================
-nnoremap <silent> sr  :<C-u>call Unite_project_files()<CR>
-function! Unite_project_files()
-    if exists('b:projectlocal_root_dir')
-        if has("win32")
-            execute ':Unite -buffer-name=files file_rec:' . b:projectlocal_root_dir . ' file/new'
-        else
-            execute ':Unite -buffer-name=files file_rec/async:' . b:projectlocal_root_dir . ' file/new'
-        endif
-    else
-        if has("win32")
-            execute ':Unite -buffer-name=files file_rec file/new'
-        else
-            execute ':Unite -buffer-name=files file_rec/async file/new'
-        endif
-    endif
-endfunction
-
-let g:projectlocal#default_filetypes = []
+" nnoremap <silent> sr  :<C-u>call Unite_project_files()<CR>
+" function! Unite_project_files()
+"     if exists('b:projectlocal_root_dir')
+"         if has("win32")
+"             execute ':Unite -buffer-name=files file_rec:' . b:projectlocal_root_dir . ' file/new'
+"         else
+"             execute ':Unite -buffer-name=files file_rec/async:' . b:projectlocal_root_dir . ' file/new'
+"         endif
+"     else
+"         if has("win32")
+"             execute ':Unite -buffer-name=files file_rec file/new'
+"         else
+"             execute ':Unite -buffer-name=files file_rec/async file/new'
+"         endif
+"     endif
+" endfunction
+" 
+" let g:projectlocal#default_filetypes = []
 
 "==============================vimfiler用設定===============================
 nnoremap <silent><expr>sf expand("%") =~ "^ssh://.*$" ?
@@ -506,3 +504,36 @@ autocmd MyAutoCmd FileType python setlocal conceallevel=0
 " unlet s:bundle
 "
 " autocmd MyAutoCmd FileType python setlocal conceallevel=0
+"
+"=============================vim-singletonの設定===============================
+let s:bundle = neobundle#get("vim-singleton")
+function! s:bundle.hooks.on_source(bundle)
+    call singleton#enable()
+endfunction
+unlet s:bundle
+
+"=============================neomru.vimの設定===============================
+let s:bundle = neobundle#get("neomru.vim")
+function! s:bundle.hooks.on_source(bundle)
+    let g:neomru#do_validate = 0
+endfunction
+unlet s:bundle
+
+"=============================Denite.nvimの設定===============================
+let s:bundle = neobundle#get("denite.nvim")
+function! s:bundle.hooks.on_source(bundle)
+    call denite#custom#var('file_rec', 'command',
+          \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+    call denite#custom#var('grep', 'command', ['ag'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'final_opts', [])
+    call denite#custom#var('grep', 'separator', [])
+    call denite#custom#var('grep', 'default_opts',
+          \ ['--nocolor', '--nogroup'])
+endfunction
+
+nnoremap <silent> sh :Denite file_mru<CR>
+nnoremap <silent> sg :Denite grep<CR>
+nnoremap <silent> sl :Denite line<CR>
+unlet s:bundle

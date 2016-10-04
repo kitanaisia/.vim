@@ -2,6 +2,9 @@
 repository = 'shougo/neomru.vim'
 
 [[plugins]]
+repository = 'shougo/denite.nvim'
+
+[[plugins]]
 repository = 'thinca/vim-quickrun' 
 
 [[plugins]]
@@ -33,3 +36,27 @@ repository = 'surround.vim'
 
 [[plugins]]
 repository = "vim-jp/vim-go-extra"
+
+[[plugins]]
+repository = 'kannokanno/previm'
+
+[[plugins]]
+repository = 'tyru/open-browser.vim'
+
+[[plugins]]
+repository = 'cisco.vim'
+
+[[plugins]]
+repository = 'momota/cisco.vim'
+
+[[plugins]]
+repository = 'momota/junos.vim'
+
+[[plugins]]
+repository = 'mattn/benchvimrc-vim'
+
+[[plugins]]
+repository = 'thinca/vim-singleton'
+
+[[plugins]]
+repository = 'thinca/vim-visualstar'

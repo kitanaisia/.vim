@@ -30,11 +30,11 @@ gui
 set guioptions=
 if has("win32")
  	autocmd MyAutoCmd GUIEnter * simalt ~x
- 	set transparency=220
+ 	set transparency=200
 	" フォントサイズはお好みで
-	set guifont=Ricty_for_Powerline:h14
+	set guifont=Ricty\ Diminished:h14
 	" こっちは日本語フォント
-	set guifontwide=Ricty:h14
+	set guifontwide=Ricty\ Diminished:h14
 	" `fancy' テーマに切り替え
 	" let g:Powerline_symbols = 'fancy'
 	set t_co=256
@@ -45,3 +45,14 @@ else
     "set guifontwide=Ricty_for_Powerline\ 12
     set guifontwide=RictyDiminished\ 14
 end
+
+" 引数無し起動時にホームディレクトリで起動
+autocmd MyAutoCmd VimEnter * nested if @% == '' && s:GetBufByte() == 0 | cd ~/ | endif
+function! s:GetBufByte()
+    let byte = line2byte(line('$') + 1)
+    if byte == -1
+        return 0
+    else
+        return byte - 1
+    endif
+endfunction
