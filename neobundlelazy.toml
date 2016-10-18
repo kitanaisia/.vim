@@ -80,3 +80,7 @@ filetypes = "python"
 [[plugins]]
 repository = 'mattn/sonictemplate-vim'
 commands = ["Template"]
+
+[[plugins]]
+repository = 'artur-shaik/vim-javacomplete2'
+filetypes = "java"
