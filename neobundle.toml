@@ -6,7 +6,6 @@ repository = 'shougo/denite.nvim'
 
 [[plugins]]
 repository = 'thinca/vim-quickrun' 
-
 [[plugins]]
 repository = 'itchyny/lightline.vim'
 
@@ -60,3 +59,15 @@ repository = 'thinca/vim-singleton'
 
 [[plugins]]
 repository = 'thinca/vim-visualstar'
+
+[[plugins]]
+repository = 'Shougo/unite-outline'
+
+[[plugins]]
+repository = 'Shougo/vimproc.vim'
+ 
+  [plugins.build]
+  windows = 'tools\\update-dll-mingw'
+  cygwin = 'make -f make_cygwin.mak'
+  mac = 'make -f make_mac.mak'
+  unix = 'make -f make_unix.mak'

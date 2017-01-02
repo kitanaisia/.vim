@@ -15,11 +15,6 @@ repository = 'Shougo/unite.vim'
 commands = ['UniteWithCurrentDir', 'Unite', 'UniteWithInputDirectory', 'UniteWithProjectDir', 'UniteBookmarkAdd', 'UniteResume', 'UniteWithBufferDir', 'UniteWithCursorWord', 'UniteWithInput', 'UniteClose' ]
 
 [[plugins]]
-repository = 'Shougo/unite-outline'
-depends = "Shougo/unite.vim"
-commands = ['UniteWithCurrentDir', 'Unite', 'UniteWithInputDirectory', 'UniteWithProjectDir', 'UniteBookmarkAdd', 'UniteResume', 'UniteWithBufferDir', 'UniteWithCursorWord', 'UniteWithInput', 'UniteClose' ]
-
-[[plugins]]
 repository = 'Shougo/vimfiler'
 augroup = "vimfiler"
 unite_sources = ['vimfiler_drive', 'vimfiler_execute', 'vimfiler_history', 'vimfiler_mask', 'vimfiler_popd', 'vimfiler_sort']
@@ -31,15 +26,6 @@ repository = 'Shougo/vimshell'
 unite_sources = ['vimshell_external_history', 'vimshell_history', 'vimshell_zsh_complete']
 mappings = ['n', '<Plug>(vimshell_']
 commands = ["Vimshell"]
-
-[[plugins]]
-repository = 'Shougo/vimproc.vim'
- 
-  [plugins.build]
-  windows = 'tools\\update-dll-mingw'
-  cygwin = 'make -f make_cygwin.mak'
-  mac = 'make -f make_mac.mak'
-  unix = 'make -f make_unix.mak'
 
 [[plugins]]
 repository = 'supermomonga/vimshell-pure.vim'
@@ -84,3 +70,8 @@ commands = ["Template"]
 [[plugins]]
 repository = 'artur-shaik/vim-javacomplete2'
 filetypes = "java"
+
+[[plugins]]
+repository = "CyCoreSystems/vim-cisco-ios"
+filetypes = ["cisco"]
+

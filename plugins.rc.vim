@@ -538,5 +538,4 @@ nnoremap <silent> sg :Denite grep<CR>
 nnoremap <silent> sl :Denite line<CR>
 unlet s:bundle
 
-"====================config for javacomplete2====================
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd MyAutoCmd FileType java setlocal omnifunc=javacomplete#Complete
