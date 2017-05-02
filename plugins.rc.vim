@@ -56,64 +56,6 @@ if has("lua")
         inoremap <expr><C-e>  neocomplete#cancel_popup()
     endfunction
     unlet s:bundle
-"==============================neocomplcache用設定==============================
-else
-    let s:bundle = neobundle#get("neocomplcache.vim")
-    function! s:bundle.hooks.on_source(bundle)
-        " neocomplcacheによる自動補完機能を有効にする
-        let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
-        let g:neocomplcache_enable_ignore_case = 1
-        let g:neocomplcache_enable_smart_case = 1 " 大文字小文字の区別を基本的に付けない．
-        let g:neocomplcache_enable_fuzzy_completion = 1
-
-        let g:neocomplcache_enable_auto_delimiter = 1
-        if !exists('g:neocomplcache_keyword_patterns')
-            let g:neocomplcache_keyword_patterns = {}
-        endif
-        let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-        if !exists('g:neocomplcache_omni_patterns')
-            let g:neocomplcache_omni_patterns = {}
-        endif
-        if !exists('g:neocomplcache_force_omni_patterns')
-            let g:neocomplcache_force_omni_patterns = {}
-        endif
-       
-        let g:neocomplcache_force_overwrite_completefunc = 1
-        let g:neocomplcache_force_omni_patterns.c =
-                    \ '[^.[:digit:] *\t]\%(\.\|->\)'
-        let g:neocomplcache_force_omni_patterns.cpp =
-                    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-        let g:clang_complete_auto = 0
-        let g:clang_auto_select = 0
-        let g:clang_use_library = 1
-       
-        " For Java(補完候補が多いためか，neocomplcacheで出ない)
-        let g:neocomplcache_force_omni_patterns.java="[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::"
-       
-        " C#用
-        if !exists('g:neocomplcache_force_omni_patterns')
-            let g:neocomplcache_force_omni_patterns = {}
-        endif
-        let g:neocomplcache_force_omni_patterns.cs = '[^.]\.\%(\u\{2,}\)\?'
-
-        imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-        smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-        xmap <C-k>     <Plug>(neosnippet_expand_target)
-        inoremap <expr><C-g>     neocomplcache#undo_completion()
-       
-        "tabで補完候補の選択を行う
-        inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-        " ポップアップキャンセル
-        inoremap <expr><C-e> neocomplcache#cancel_popup() 
-        "<C-g>で補完を元に戻す
-        inoremap <expr><C-g> neocomplcache#undo_completion()
-        "<C-l>で補完候補の共通部分のみを補完する
-        inoremap <expr><C-l> neocomplcache#complete_common_string()
-       
-    endfunction
-    unlet s:bundle
 endif
 
 "==============================neosnippetの設定==============================
@@ -506,12 +448,13 @@ autocmd MyAutoCmd FileType python setlocal conceallevel=0
 " autocmd MyAutoCmd FileType python setlocal conceallevel=0
 "
 "=============================vim-singletonの設定===============================
-let s:bundle = neobundle#get("vim-singleton")
-function! s:bundle.hooks.on_source(bundle)
-    call singleton#enable()
-endfunction
-unlet s:bundle
-
+if has("clientserver")
+    let s:bundle = neobundle#get("vim-singleton")
+    function! s:bundle.hooks.on_source(bundle)
+        call singleton#enable()
+    endfunction
+    unlet s:bundle
+endif
 "=============================neomru.vimの設定===============================
 let s:bundle = neobundle#get("neomru.vim")
 function! s:bundle.hooks.on_source(bundle)
