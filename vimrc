@@ -213,7 +213,7 @@ set splitright
 autocmd MyAutoCmd filetype gitcommit setlocal fileencoding=utf-8
 autocmd MyAutoCmd FileType go autocmd MyAutoCmd BufWritePre <buffer> Fmt
 
-let $PATH="~/.rbenv/shims/:"."~/.rbenv/bin:".$PATH
+" let $PATH="~/.rbenv/shims/:"."~/.rbenv/bin:".$PATH
 let $PYTHONPATH="/usr/local/lib/python2.7/site-packages/:".$PYTHONPATH
 let $GOROOT="/usr/local/go"
 let $GOPATH=$HOME."/go"
