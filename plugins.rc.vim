@@ -476,9 +476,9 @@ function! s:bundle.hooks.on_source(bundle)
           \ ['--nocolor', '--nogroup'])
 endfunction
 
-nnoremap <silent> sh :Denite file_mru<CR>
-nnoremap <silent> sg :Denite grep<CR>
-nnoremap <silent> sl :Denite line<CR>
+nnoremap <silent> sh :Denite -mode=normal file_mru<CR>
+nnoremap <silent> sg :Denite -mode=normal grep<CR>
+nnoremap <silent> sl :Denite -mode=normal line<CR>
 unlet s:bundle
 
 autocmd MyAutoCmd FileType java setlocal omnifunc=javacomplete#Complete
