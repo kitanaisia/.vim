@@ -1,62 +1,62 @@
-if has("lua")
-    let s:bundle = neobundle#get("neocomplete.vim")
-
-    function! s:bundle.hooks.on_source(bundle)
-        let g:neocomplete#enable_at_startup = 1
-        let g:neocomplete#enable_smart_case = 1
-        let g:neocomplete#enable_auto_delimiter = 1
-        "
-        if !exists('g:neocomplete#keyword_patterns')
-            let g:neocomplete#keyword_patterns = {}
-        endif
-        let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-        
-        "C#用
-        let g:clang_complete_auto = 0
-        let g:clang_auto_select = 0
-        let g:clang_use_library = 1
-        
-        if !exists('g:neocomplete#sources#omni#input_patterns')
-            let g:neocomplete#sources#omni#input_patterns = {}
-        endif
-        let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-        let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-        if !exists('g:neocomplete#force_omni_input_patterns')
-            let g:neocomplete#force_omni_input_patterns = {}
-        endif
-        " let g:neocomplete#force_omni_input_patterns.cs = '[^.]\.\%(\u\{2,}\)\?'
-
-        " if has("unix")
-        "     autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
-        " endif
-        
-        imap <expr><C-k> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<C-y>"
-        smap <expr><C-k> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)" : "\<C-k>"
-        xmap <expr><C-k>     <Plug>(neosnippet_expand_target)
-        
-        "tabで補完候補の選択を行う
-        inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-        " ポップアップキャンセル
-        inoremap <expr><C-e> neocomplete#cancel_popup() 
-        "<C-g>で補完を元に戻す
-        inoremap <expr><C-g> neocomplete#undo_completion()
-        "<C-l>で補完候補の共通部分のみを補完する
-        inoremap <expr><C-l> neocomplete#complete_common_string()
-        
-        " <TAB>: completion.
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-        " <C-h>, <BS>: close popup and delete backword char.
-        inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-        inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-        inoremap <expr><C-y>  neocomplete#close_popup()
-        inoremap <expr><C-e>  neocomplete#cancel_popup()
-    endfunction
-    unlet s:bundle
-endif
+" if has("lua")
+"     let s:bundle = neobundle#get("neocomplete.vim")
+" 
+"     function! s:bundle.hooks.on_source(bundle)
+"         let g:neocomplete#enable_at_startup = 1
+"         let g:neocomplete#enable_smart_case = 1
+"         let g:neocomplete#enable_auto_delimiter = 1
+"         "
+"         if !exists('g:neocomplete#keyword_patterns')
+"             let g:neocomplete#keyword_patterns = {}
+"         endif
+"         let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+"         
+"         "C#用
+"         let g:clang_complete_auto = 0
+"         let g:clang_auto_select = 0
+"         let g:clang_use_library = 1
+"         
+"         if !exists('g:neocomplete#sources#omni#input_patterns')
+"             let g:neocomplete#sources#omni#input_patterns = {}
+"         endif
+"         let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"         let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"         let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" 
+"         if !exists('g:neocomplete#force_omni_input_patterns')
+"             let g:neocomplete#force_omni_input_patterns = {}
+"         endif
+"         " let g:neocomplete#force_omni_input_patterns.cs = '[^.]\.\%(\u\{2,}\)\?'
+" 
+"         " if has("unix")
+"         "     autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
+"         " endif
+"         
+"         imap <expr><C-k> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<C-y>"
+"         smap <expr><C-k> neosnippet#expandable_or_jumpable() ?
+"         \ "\<Plug>(neosnippet_expand_or_jump)" : "\<C-k>"
+"         xmap <expr><C-k>     <Plug>(neosnippet_expand_target)
+"         
+"         "tabで補完候補の選択を行う
+"         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+"         " ポップアップキャンセル
+"         inoremap <expr><C-e> neocomplete#cancel_popup() 
+"         "<C-g>で補完を元に戻す
+"         inoremap <expr><C-g> neocomplete#undo_completion()
+"         "<C-l>で補完候補の共通部分のみを補完する
+"         inoremap <expr><C-l> neocomplete#complete_common_string()
+"         
+"         " <TAB>: completion.
+"         inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"         " <C-h>, <BS>: close popup and delete backword char.
+"         inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"         inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"         inoremap <expr><C-y>  neocomplete#close_popup()
+"         inoremap <expr><C-e>  neocomplete#cancel_popup()
+"     endfunction
+"     unlet s:bundle
+" endif
 
 "==============================neosnippetの設定==============================
 let s:bundle = neobundle#get("neosnippet.vim")
@@ -67,7 +67,7 @@ endfunction
 unlet s:bundle
 "==============================unite.vimの設定==============================
 "マッピング
-" nnoremap <silent> sh :Unite -buffer-name=files file_mru<CR>
+nnoremap <silent> sh :Unite -buffer-name=files file_mru<CR>
 nnoremap <silent> sd :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <silent> so :Unite outline -winwidth=30<CR>
 nnoremap <silent> sb :Unite bookmark -default-action=rec/async <CR>
@@ -448,13 +448,13 @@ autocmd MyAutoCmd FileType python setlocal conceallevel=0
 " autocmd MyAutoCmd FileType python setlocal conceallevel=0
 "
 "=============================vim-singletonの設定===============================
-if has("clientserver")
-    let s:bundle = neobundle#get("vim-singleton")
-    function! s:bundle.hooks.on_source(bundle)
-        call singleton#enable()
-    endfunction
-    unlet s:bundle
-endif
+" if has("clientserver")
+"     let s:bundle = neobundle#get("vim-singleton")
+"     function! s:bundle.hooks.on_source(bundle)
+"         call singleton#enable()
+"     endfunction
+"     unlet s:bundle
+" endif
 "=============================neomru.vimの設定===============================
 let s:bundle = neobundle#get("neomru.vim")
 function! s:bundle.hooks.on_source(bundle)
@@ -476,9 +476,15 @@ function! s:bundle.hooks.on_source(bundle)
           \ ['--nocolor', '--nogroup'])
 endfunction
 
-nnoremap <silent> sh :Denite -mode=normal file_mru<CR>
+" nnoremap <silent> sh :Denite -mode=normal file_mru<CR>
 nnoremap <silent> sg :Denite -mode=normal grep<CR>
 nnoremap <silent> sl :Denite -mode=normal line<CR>
 unlet s:bundle
 
 autocmd MyAutoCmd FileType java setlocal omnifunc=javacomplete#Complete
+
+"=============================deoplete.vimの設定===============================
+let g:deoplete#enable_at_startup = 1
+"tabで補完候補の選択を行う
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"

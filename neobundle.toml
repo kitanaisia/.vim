@@ -55,13 +55,25 @@ repository = 'momota/junos.vim'
 repository = 'mattn/benchvimrc-vim'
 
 [[plugins]]
-repository = 'thinca/vim-singleton'
-
-[[plugins]]
 repository = 'thinca/vim-visualstar'
 
 [[plugins]]
 repository = 'Shougo/unite-outline'
+
+[[plugins]]
+repository = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]]
+repository = 'roxma/nvim-yarp'
+
+[[plugins]]
+repository = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repository = 'ujihisa/vimshell-ssh'
+
+[[plugins]]
+repository = 'github/copilot.vim'
 
 [[plugins]]
 repository = 'Shougo/vimproc.vim'
@@ -71,3 +83,4 @@ repository = 'Shougo/vimproc.vim'
   cygwin = 'make -f make_cygwin.mak'
   mac = 'make -f make_mac.mak'
   unix = 'make -f make_unix.mak'
+
