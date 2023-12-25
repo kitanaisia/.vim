@@ -76,6 +76,12 @@ repository = 'ujihisa/vimshell-ssh'
 repository = 'github/copilot.vim'
 
 [[plugins]]
+repository = 'deoplete-plugins/deoplete-zsh'
+
+[[plugins]]
+repository = 'Shougo/deol.nvim'
+
+[[plugins]]
 repository = 'Shougo/vimproc.vim'
  
   [plugins.build]

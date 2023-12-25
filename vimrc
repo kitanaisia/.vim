@@ -60,8 +60,7 @@ set mousehide
 if has("win32")
     set clipboard=unnamed,autoselect
 elseif has("unix")
-    " set clipboard=unnamedplus,autoselect
-    set clipboard=exclude:.*
+    set clipboard=unnamedplus,autoselect
 endif
 
 " set cursorline

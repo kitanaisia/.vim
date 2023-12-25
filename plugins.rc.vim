@@ -488,3 +488,6 @@ let g:deoplete#enable_at_startup = 1
 "tabで補完候補の選択を行う
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+tnoremap   <ESC>         <C-\><C-n>
+autocmd MyAutoCmd FileType deol nmap <buffer> i <Plug>(deol_edit)
